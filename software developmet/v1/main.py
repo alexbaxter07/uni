@@ -17,7 +17,7 @@ def main():
     #the function int will turn the users input to an integer as an input is always taken as a string this is easier for comparison later
     choice = int(input("Please select an option (n): "))
 
-    #double equals signs is a comparionsion which will return a boolean
+    #double equals signs is a comparison which will return a boolean
     if choice == 1:
         staff_main_menu()
 
@@ -32,7 +32,133 @@ def main():
 
 def staff_main_menu():
 
+    while True:
+
+        print("")
+        print("####################################################")
+        print("############## SHU Staff Library management System ##############")
+        print("####################################################")
+        print("")
+        print("########### Please select an option ################")
+        print("### 1. Libarian Menu")
+        print("### 2. Supervisor Menu")
+        print("### 200. Exit program")
+        # i choose 200 for this as if it was a single number there would be more chance of a user accidentally pressing it
+
+        # the function int will turn the users input to an integer as an input is always taken as a string this is easier for comparison later
+        choice = int(input("Please select an option (n): "))
+
+        if choice == 1:
+            libarian_main_menu()
+
+        elif choice == 2:
+            supervisor_main_menu()
+
+        elif choice == 200:
+            quit()  # this function will stop the program
+
+        else:
+            print("Your choice was invalid please try again")
+
+def supervisor_main_menu():
+
+    while True:
+
+        print("")
+        print("####################################################")
+        print("############## Supervisor management System ##############")
+        print("####################################################")
+        print("")
+        print("########### Please select an option ################")
+        print("### 1. Add Staff")
+        print("### 2. Remove Staff ")
+        print("### 3. Borrow a book")
+        print("### 4. Return a book")
+        print("### 5. View Available Books")
+        print("### 6. View All Books")
+        print("### 200. Exit program")
+        # i choose 200 for this as if it was a single number there would be more chance of a user accidentally pressing it
+
+        # the function int will turn the users input to an integer as an input is always taken as a string this is easier for comparison later
+        choice = int(input("Please select an option (n): "))
+
+        if choice == 1:
+            source = add_staff()
+            print("This is the staff member you have added:")
+            print(source)
+
+        elif choice == 1:
+            source = remove_staff()
+            print("This is the staff member you have removed:")
+            print(source)
+        elif choice == 3:
+            source = book_borow()
+            print("This is the book you are borrowing:")
+            print(source)
+        elif choice == 4:
+            source = book_return()
+            print("This is the book you have returned:")
+            print(source)
+
+        elif choice == 5:
+            source = available_books()
+            print("This is the total income of cash vs card:")
+            print(source)
+
+        elif choice == 5:
+            source = all_books()
+            print("This is all the books in the libary:")
+            print(source)
+
+        elif choice == 200:
+            quit()  # this function will stop the program
+
+        else:
+            print("Your choice was invalid please try again")
+
+def libarian_main_menu():
+
+    while True:
+
+        print("")
+        print("####################################################")
+        print("############## Library management System ##############")
+        print("####################################################")
+        print("")
+        print("########### Please select an option ################")
+        print("### 1. Borrow a book")
+        print("### 2. Return a book")
+        print("### 3. View Available Books")
+        print("### 4. View All Books")
+        print("### 200. Exit program")
+        # i choose 200 for this as if it was a single number there would be more chance of a user accidentally pressing it
+
+        # the function int will turn the users input to an integer as an input is always taken as a string this is easier for comparison later
+        choice = int(input("Please select an option (n): "))
+
+        if choice == 1:
+            source = book_borow()
+            print("This is the book you are borrowing:")
+            print(source)
+
+        elif choice == 2:
+            source = book_return()
+            print("This is the book you have returned:")
+            print(source)
+
+        elif choice == 3:
+            source = available_books()
+            print("This is the total income of cash vs card:")
+            print(source)
+
+        elif choice == 200:
+            quit()  # this function will stop the program
+
+        else:
+            print("Your choice was invalid please try again")
+
 def stu_main_menu():
+
     while True:
 
         print("")
@@ -41,64 +167,33 @@ def stu_main_menu():
         print("####################################################")
         print("")
         print("########### Please select an option ################")
-        print("### 1. Total items sold by source")
-        print("### 2. Total income by day")
-        print("### 3. Total income from cash vs card")
-        print("### 4. Income of cash over a period of time")
-        print("### 5. Income of card over a period of time")
-        print("### 6. Average income by source")
-        print("### 7. Average income by day")
-        print("### 8. Average income from cash vs card")
-        print("### 9. Total Income by source")
-        print("### 10. Total Income by source")
+        print("### 1. Borrow a book")
+        print("### 2. Return a book")
+        print("### 3. View Available Books")
+        print("### 200. Exit program")
+        # i choose 200 for this as if it was a single number there would be more chance of a user accidentally pressing it
 
+        # the function int will turn the users input to an integer as an input is always taken as a string this is easier for comparison later
         choice = int(input("Please select an option (n): "))
 
         if choice == 1:
-            source = tot_items_source()
-            print("This is the total items sold by day:")
+            source = book_borow()
+            print("This is the book you are borrowing:")
             print(source)
+
         elif choice == 2:
-            day = income_day()
-            print("This is the total income by day:")
-            print(day)
-            print("This shows the highest sales come from Friday.")
-        elif choice == 3:
-            cash_card = cash_vs_card()
-            print("This is the total income of cash vs card:")
-            print(cash_card)
-            print("This shows most people prefer cash")
-        elif choice == 4:
-            cash_time = cash_period_of_time()
-            print("This is the total income of cash over a period of time")
-            print(cash_time)
-        elif choice == 5:
-            card_time = card_period_of_time()
-            print("This is the total income of card over a period of time")
-            print(card_time)
-        elif choice == 6:
-            av_source = av_income_source()
-            print("This is the average income:")
+            source = book_return()
+            print("This is the book you have returned:")
             print(source)
-        elif choice == 7:
-            av_day = av_income_day()
-            print("This is the average income by day:")
-            print(av_day)
-        elif choice == 8:
-            av_cash_card = av_cash_vs_card()
-            print("This is the average income of cash vs card:")
-            print(av_cash_card)
-        elif choice == 9:
-            income_source = tot_income_source()
-            print("Total income of each source: ")
-            print(income_source)
-            print("This shows highest sales come from the tickets")
-        elif choice == 10:
-            average_income_source = av_income_source()
-            print("Average income of each source: ")
-            print(average_income_source)
+
+        elif choice == 3:
+            source = available_books()
+            print("This is the total income of cash vs card:")
+            print(source)
+
         elif choice == 200:
             quit()  # this function will stop the program
+
         else:
             print("Your choice was invalid please try again")
 
