@@ -72,10 +72,11 @@ def supervisor_main_menu():
         print("########### Please select an option ################")
         print("### 1. Add Staff")
         print("### 2. Remove Staff ")
-        print("### 3. Borrow a book")
-        print("### 4. Return a book")
-        print("### 5. View Available Books")
-        print("### 6. View All Books")
+        print("### 3. Update Staff")
+        print("### 5. Borrow a book")
+        print("### 6. Return a book")
+        print("### 7. View Available Books")
+        print("### 8. View All Books")
         print("### 200. Exit program")
         # i choose 200 for this as if it was a single number there would be more chance of a user accidentally pressing it
 
@@ -87,25 +88,32 @@ def supervisor_main_menu():
             print("This is the staff member you have added:")
             print(source)
 
-        elif choice == 1:
+        elif choice == 2:
             source = remove_staff()
             print("This is the staff member you have removed:")
             print(source)
+
         elif choice == 3:
+            source = upd_staff()
+            print("This is the new information for the staff:")
+            print(source)
+
+        elif choice == 4:
             source = book_borow()
             print("This is the book you are borrowing:")
             print(source)
-        elif choice == 4:
+            
+        elif choice == 5:
             source = book_return()
             print("This is the book you have returned:")
             print(source)
 
-        elif choice == 5:
+        elif choice == 6:
             source = available_books()
             print("This is the total income of cash vs card:")
             print(source)
 
-        elif choice == 5:
+        elif choice == 7:
             source = all_books()
             print("This is all the books in the libary:")
             print(source)
@@ -157,45 +165,6 @@ def libarian_main_menu():
         else:
             print("Your choice was invalid please try again")
 
-def stu_main_menu():
-
-    while True:
-
-        print("")
-        print("####################################################")
-        print("############## SHU Student Library management System ##############")
-        print("####################################################")
-        print("")
-        print("########### Please select an option ################")
-        print("### 1. Borrow a book")
-        print("### 2. Return a book")
-        print("### 3. View Available Books")
-        print("### 200. Exit program")
-        # i choose 200 for this as if it was a single number there would be more chance of a user accidentally pressing it
-
-        # the function int will turn the users input to an integer as an input is always taken as a string this is easier for comparison later
-        choice = int(input("Please select an option (n): "))
-
-        if choice == 1:
-            source = book_borow()
-            print("This is the book you are borrowing:")
-            print(source)
-
-        elif choice == 2:
-            source = book_return()
-            print("This is the book you have returned:")
-            print(source)
-
-        elif choice == 3:
-            source = available_books()
-            print("This is the total income of cash vs card:")
-            print(source)
-
-        elif choice == 200:
-            quit()  # this function will stop the program
-
-        else:
-            print("Your choice was invalid please try again")
 
 # this is a secure way of calling main
 if __name__ == '__main__':
