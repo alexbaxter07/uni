@@ -4,10 +4,14 @@ import matplotlib.pyplot as plt #this imports matplotlib which is used for creat
 #this sub routine reads in the csv so that it is secure and there is no global variable
 def read_in_staff():
 
-    df = pd.read_csv('staff.csv') # this reads in the csv changing it to a dataframe using pandas and puts it into a variable
-    return df #this returns the variable containing the dataframe to the sub routine that the program that is calling it
+    df_s = pd.read_csv('staff.csv') # this reads in the csv changing it to a dataframe using pandas and puts it into a variable
+    return df_s #this returns the variable containing the dataframe to the sub routine that the program that is calling it
 
-#this is a menu for the source choice so that all of the validaition can be done here instead of having it multiple times
+
+def read_in_inven():
+
+    df_i = pd.read_csv('inventories.csv') # this reads in the csv changing it to a dataframe using pandas and puts it into a variable
+    return df_i #this returns the variable containing the dataframe to the sub routine that the program that is calling it
 
 def main():
     print("")
