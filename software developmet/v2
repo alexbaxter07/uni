@@ -1,6 +1,14 @@
 import pandas as pd #this imports pandas which is used for data wrangling
 import matplotlib.pyplot as plt #this imports matplotlib which is used for creating graphs from the dataframes
 
+#this sub routine reads in the csv so that it is secure and there is no global variable
+def read_in_staff():
+
+    df = pd.read_csv('staff.csv') # this reads in the csv changing it to a dataframe using pandas and puts it into a variable
+    return df #this returns the variable containing the dataframe to the sub routine that the program that is calling it
+
+#this is a menu for the source choice so that all of the validaition can be done here instead of having it multiple times
+
 def main():
     print("")
     print("####################################################")
@@ -102,7 +110,7 @@ def supervisor_main_menu():
             source = book_borow()
             print("This is the book you are borrowing:")
             print(source)
-            
+
         elif choice == 5:
             source = book_return()
             print("This is the book you have returned:")
@@ -169,4 +177,3 @@ def libarian_main_menu():
 # this is a secure way of calling main
 if __name__ == '__main__':
     main()
-
