@@ -35,47 +35,45 @@ def sup_main_menu():
 
     while True:
 
-        while True:
+        print("")
+        print("####################################################")
+        print("############## Library management System ##############")
+        print("####################################################")
+        print("")
+        print("########### Please select an option ################")
+        print("### 1. Loan a book")
+        print("### 2. Return a book")
+        print("### 3. View A Book")
+        print("### 4. Manage Staff")
+        print("### 5. Add A Book")
+        print("### 200. Exit program")
+        # i choose 200 for this as if it was a single number there would be more chance of a user accidentally pressing it
 
-            print("")
-            print("####################################################")
-            print("############## Library management System ##############")
-            print("####################################################")
-            print("")
-            print("########### Please select an option ################")
-            print("### 1. Loan a book")
-            print("### 2. Return a book")
-            print("### 3. View A Book")
-            print("### 4. Manage Staff")
-            print("### 5. Add A Book")
-            print("### 200. Exit program")
-            # i choose 200 for this as if it was a single number there would be more chance of a user accidentally pressing it
+        # the function int will turn the users input to an integer as an input is always taken as a string this is easier for comparison later
+        choice = int(input("Please select an option (n): "))
 
-            # the function int will turn the users input to an integer as an input is always taken as a string this is easier for comparison later
-            choice = int(input("Please select an option (n): "))
+        if choice == 1:
+            source = book_loan()
+            print("This is the book you are loaning:")
+            print(source)
 
-            if choice == 1:
-                source = book_loan()
-                print("This is the book you are loaning:")
-                print(source)
+        elif choice == 2:
+            source = book_return()
+            print("This is the book you have returned:")
+            print(source)
 
-            elif choice == 2:
-                source = book_return()
-                print("This is the book you have returned:")
-                print(source)
+        elif choice == 3:
+            source = book_veiw()
+            print("This is the list of available books:")
+            print(source)
 
-            elif choice == 3:
-                source = book_veiw()
-                print("This is the list of available books:")
-                print(source)
+        elif choice == 200:
+            quit()  # this function will stop the program
 
-            elif choice == 200:
-                quit()  # this function will stop the program
+        else:
+            print("Your choice was invalid please try again")
 
-            else:
-                print("Your choice was invalid please try again")
-
-def libarian_main_menu():
+def lib_main_menu():
 
     while True:
 
