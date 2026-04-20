@@ -7,8 +7,7 @@ def main():
     print("####################################################")
     print("")
     print("########### Please select an option ################")
-    print("### 1. Librarian Login")
-    print("### 2. Supervisor Login")
+    print("### 1. Login")
     print("### 200. Exit program")
     # i choose 200 for this as if it was a single number there would be more chance of a user accidentally pressing it
     print("")
@@ -18,16 +17,21 @@ def main():
 
     #double equals signs is a comparison which will return a boolean
     if choice == 1:
-        lib_log()
+        login()
 
-    elif choice == 2:
-        sup_main_menu()
+        if user["role"] == "Librarian":
+            lib_main_menu()
+
+        elif user["role"] == "Supervisor":
+            sup_main_menu()
+
 
     elif choice == 200:
         quit()  # this function will stop the program
 
     else:
         print("Your choice was invalid please try again")
+
 
 def load_staff():
     staff = []
@@ -38,32 +42,77 @@ def load_staff():
         return staff
 
     with open('staff.csv', "r") as f:
+
         lines = f.readlines()
 
-        for line in lines:
-            data = line..strip().split(',')
+            #STRIP HEADER
+            for line in lines[1:]:
 
-            user ={
-                "UserID": data[0],
-                "Name": data[1],
-                "Role": data[2],
-                "Status": data[7],
-            }
+                data = line..strip().split(',')
 
-            staff.append(user)
+                user ={
+                    "UserID": data[0],
+                    "Name": data[1],
+                    "Role": data[2],
+                    "Status": data[7],
+                }
+
+                staff.append(user)
 
     return staff
 
-def find_user(staff,username):
+def find_user(staff,userid):
     for user in staff:
-        if user["UserID"] == username:
+        if user["UserID"] == userid:
             return user
         else:
             pass
     return None
 
+def save_staff(staff):
 
-def lib_log():
+    with open('staff.csv', "w") as file:
+        file.write("UserID,Name,Role,Status")
+
+        for user in staff:
+            line = {user["UserID"],user["Name"],user["Role"],user["Status"]}
+            file.write(line)
+
+def login():
+
+    staff = load_staff()
+    attempts = 0
+
+    while attempts < 3:
+
+        userid = input("Please input your userid: ").strip()
+        password = input("Please input your password: ").strip()
+
+        user = find_user(staff,userid)
+
+        #uerid not found
+        if user is None:
+            attempts += 1
+            print("Invalid userID, please try again. Attempts left: ",{3 - attempts})
+
+        elif user["Status"] != "active":
+            print("your account is not active, cannot log in.")
+            return None
+
+        elif user[password.upper()] != password:
+            attempts += 1
+            print("Invalid password, please try again. Attempts left: ",{3 - attempts})
+
+            if attempts == 3:
+                user["Status"] = "blocked"
+                save_staff(staff)
+                print("Your user has been blocked")
+
+        else:
+            print("Logged in successfully")
+            return user
+
+    return None
 
 def sup_main_menu():
 
