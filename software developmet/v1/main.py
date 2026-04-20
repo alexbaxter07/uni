@@ -17,7 +17,7 @@ def main():
 
     #double equals signs is a comparison which will return a boolean
     if choice == 1:
-        login()
+        user = login()
 
         if user["role"] == "Librarian":
             lib_main_menu()
@@ -45,28 +45,29 @@ def load_staff():
 
         lines = f.readlines()
 
-            #STRIP HEADER
-            for line in lines[1:]:
+        #STRIP HEADER
+        for line in lines[1:]:
 
-                data = line..strip().split(',')
+            data = line.strip().split(',')
 
-                user ={
-                    "UserID": data[0],
-                    "Name": data[1],
-                    "Role": data[2],
-                    "Status": data[7],
-                }
+            user ={
+                "UserID": data[0],
+                "Name": data[1],
+                "Role": data[2],
+                "Password": data[6],
+                "Status": data[7],
+            }
 
-                staff.append(user)
+            staff.append(user)
 
     return staff
 
 def find_user(staff,userid):
+
     for user in staff:
         if user["UserID"] == userid:
             return user
-        else:
-            pass
+
     return None
 
 def save_staff(staff):
@@ -75,8 +76,8 @@ def save_staff(staff):
         file.write("UserID,Name,Role,Status")
 
         for user in staff:
-            line = {user["UserID"],user["Name"],user["Role"],user["Status"]}
-            file.write(line)
+            line = f"{user["UserID"],user["Name"],user["Role"],user["Status"]}"
+            file.write("UserID,Name,Role,Status")
 
 def login():
 
@@ -93,15 +94,15 @@ def login():
         #uerid not found
         if user is None:
             attempts += 1
-            print("Invalid userID, please try again. Attempts left: ",{3 - attempts})
+            print("Invalid userID, please try again. Attempts left: {3 - attempts}")
 
         elif user["Status"] != "active":
             print("your account is not active, cannot log in.")
             return None
 
-        elif user[password.upper()] != password:
+        elif user["Password"] != password:
             attempts += 1
-            print("Invalid password, please try again. Attempts left: ",{3 - attempts})
+            print("Invalid password, please try again. Attempts left: {3 - attempts}")
 
             if attempts == 3:
                 user["Status"] = "blocked"
