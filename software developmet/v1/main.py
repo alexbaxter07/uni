@@ -32,6 +32,7 @@ def main():
 def load_staff():
     staff = []
 
+#error handling
     if not os.path.exists('staff.csv'):
         print("The staff file does not exist")
         return staff
@@ -52,6 +53,15 @@ def load_staff():
             staff.append(user)
 
     return staff
+
+def find_user(staff,username):
+    for user in staff:
+        if user["UserID"] == username:
+            return user
+        else:
+            pass
+    return None
+
 
 def lib_log():
 
