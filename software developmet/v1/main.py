@@ -1,5 +1,4 @@
-import pandas as pd #this imports pandas which is used for data wrangling
-import matplotlib.pyplot as plt #this imports matplotlib which is used for creating graphs from the dataframes
+import os
 
 def main():
     print("")
@@ -19,7 +18,7 @@ def main():
 
     #double equals signs is a comparison which will return a boolean
     if choice == 1:
-        lib_main_menu()
+        lib_log()
 
     elif choice == 2:
         sup_main_menu()
@@ -30,6 +29,31 @@ def main():
     else:
         print("Your choice was invalid please try again")
 
+def load_staff():
+    staff = []
+
+    if not os.path.exists('staff.csv'):
+        print("The staff file does not exist")
+        return staff
+
+    with open('staff.csv', "r") as f:
+        lines = f.readlines()
+
+        for line in lines:
+            data = line..strip().split(',')
+
+            user ={
+                "UserID": data[0],
+                "Name": data[1],
+                "Role": data[2],
+                "Status": data[7],
+            }
+
+            staff.append(user)
+
+    return staff
+
+def lib_log():
 
 def sup_main_menu():
 
