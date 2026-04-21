@@ -19,10 +19,10 @@ def main():
     if choice == 1:
         user = login()
 
-        if user["role"] == "Librarian":
+        if user["Role"] == "Librarian":
             lib_main_menu()
 
-        elif user["role"] == "Supervisor":
+        elif user["Role"] == "Supervisor":
             sup_main_menu()
 
 
@@ -37,9 +37,9 @@ def load_staff():
     staff = []
 
 #error handling
-    if not os.path.exists('staff.csv'):
-        print("The staff file does not exist")
-        return staff
+     if not os.path.exists('staff.csv'):
+       print("The staff file does not exist")
+     return staff
 
     with open('staff.csv', "r") as f:
 
@@ -94,7 +94,7 @@ def login():
         #uerid not found
         if user is None:
             attempts += 1
-            print("Invalid userID, please try again. Attempts left: {3 - attempts}")
+            print(f"Invalid userID, please try again. Attempts left: {3 - attempts}")
 
         elif user["Status"] != "active":
             print("your account is not active, cannot log in.")
@@ -102,7 +102,7 @@ def login():
 
         elif user["Password"] != password:
             attempts += 1
-            print("Invalid password, please try again. Attempts left: {3 - attempts}")
+            print(f"Invalid password, please try again. Attempts left: {3 - attempts}")
 
             if attempts == 3:
                 user["Status"] = "blocked"
