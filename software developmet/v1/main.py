@@ -39,7 +39,7 @@ def load_staff():
 #error handling
      if not os.path.exists('staff.csv'):
        print("The staff file does not exist")
-     return staff
+    return staff
 
     with open('staff.csv', "r") as f:
 
