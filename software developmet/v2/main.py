@@ -38,13 +38,15 @@ def login():
     email = input("Please enter your email: ").strip()
     password = input("Please enter your password: ").strip()
 
-    with open('staff.csv') as file:
+    with open('staff.csv') as f:
+        reader =csv.DictReader(f)
 
-        for line in file.readlines():
+        for row in reader:
+            if row["Email"] == email and row["Password"] == password:
+                print("Login successful!")
+                return
 
-
-
-
+    print("Invalid Email or password.")
 
 
 # this is a secure way of calling main
