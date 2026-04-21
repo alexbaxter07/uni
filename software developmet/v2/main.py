@@ -18,13 +18,7 @@ def main():
 
     #double equals signs is a comparison which will return a boolean
     if choice == 1:
-        user = login()
-
-        if user["Role"] == "Librarian":
-            lib_main_menu()
-
-        elif user["Role"] == "Supervisor":
-            sup_main_menu()
+        login()
 
     elif choice == 200:
         quit()  # this function will stop the program
@@ -44,10 +38,22 @@ def login():
         for row in reader:
             if row["Email"] == email and row["Password"] == password:
                 print("Login successful!")
-                return
 
-    print("Invalid Email or password.")
+                if row["Role"] == "Librarian":
+                    lib_main_menu()
+                    return
+                elif row["Role"] == "Supervisor":
+                    sup_main_menu()
+                    return
 
+            else:
+                print("Invalid Email or password.")
+
+def lib_main_menu():
+    print("lib main menu")
+
+def sup_main_menu():
+    print("sup main menu")
 
 # this is a secure way of calling main
 if __name__ == '__main__':
