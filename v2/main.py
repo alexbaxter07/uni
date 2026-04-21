@@ -1,4 +1,5 @@
 import os
+import csv
 
 def main():
     print("")
@@ -33,8 +34,18 @@ def main():
 
 def login():
 
-    username = input("Please enter your username: ")
-    password = input("Please enter your password: ")
+
+    email = input("Please enter your email: ").strip()
+    password = input("Please enter your password: ").strip()
+
+    with open('staff.csv') as file:
+
+        for line in file.readlines():
+
+
+
+
+
 
 # this is a secure way of calling main
 if __name__ == '__main__':
