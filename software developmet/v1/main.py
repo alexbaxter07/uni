@@ -60,10 +60,83 @@ def login():
                 return
 
 def lib_main_menu():
-    print("lib main menu")
+
+    print("")
+    print("####################################################")
+    print("############## SHU Library management System ##############")
+    print("####################################################")
+    print("")
+    print("########### Please select an option ################")
+    print("### 1. Loan Books")
+    print("### 2. Return Books")
+    print("### 3. Extend loan period for Books")
+    print("### 3.  Search for Books")
+    print("### 200. Exit program")
+    # i choose 200 for this as if it was a single number there would be more chance of a user accidentally pressing it
+    print("")
+
+    choice = int(input("Please select an option (n): "))
+
+    if choice == 1:
+        loan()
+    elif choice == 2:
+        return_book()
+    elif choice == 3:
+        extend_loan()
+    elif choice == 4:
+        search()
+    elif choice == 200:
+        quit()
+    else:
+        print("Your choice was invalid please try again")
 
 def sup_main_menu():
-    print("sup main menu")
+
+    print("")
+    print("####################################################")
+    print("############## SHU Library management System ##############")
+    print("####################################################")
+    print("")
+    print("########### Please select an option ################")
+    print("### 1. Loan Books")
+    print("### 2. Return Books")
+    print("### 3. Extend loan period for Books")
+    print("### 3.  Search for Books")
+    print("### 200. Exit program")
+    # i choose 200 for this as if it was a single number there would be more chance of a user accidentally pressing it
+    print("")
+
+    choice = int(input("Please select an option (n): "))
+
+    if choice == 1:
+        loan()
+
+    elif choice == 2:
+        return_book()
+
+    elif choice == 3:
+        extend_loan()
+
+    elif choice == 4:
+        search()
+
+    elif choice == 200:
+        quit()
+
+    else:
+        print("Your choice was invalid please try again")
+
+def loan():
+    print("loan books")
+
+def return_book():
+    print("return books")
+
+def extend_loan():
+    print("extend loan period")
+
+def search():
+    print("search")
 
 # this is a secure way of calling main
 if __name__ == '__main__':
