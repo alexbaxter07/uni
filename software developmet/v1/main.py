@@ -31,23 +31,33 @@ def login():
 
     email = input("Please enter your email: ").strip()
     password = input("Please enter your password: ").strip()
+    file_path = os.path.join(os.path.dirname(__file__), 'staff.csv')
 
-    with open('staff.csv') as f:
+    with open(file_path) as f:
         reader =csv.DictReader(f)
 
         for row in reader:
-            if row["Email"] == email and row["Password"] == password:
-                print("Login successful!")
 
-                if row["Role"] == "Librarian":
-                    lib_main_menu()
-                    return
-                elif row["Role"] == "Supervisor":
-                    sup_main_menu()
+            if row["Status"] == "active":
+
+                if row["Email"] == email and row["Password"] == password:
+
+                    print("Login successful!")
+
+                    if row["Role"] == "Librarian":
+                        lib_main_menu()
+                        return
+                    elif row["Role"] == "Supervisor":
+                        sup_main_menu()
+                        return
+
+                else:
+                    print("Invalid Email or password.")
                     return
 
             else:
-                print("Invalid Email or password.")
+                print("Your account is not active")
+                return
 
 def lib_main_menu():
     print("lib main menu")
