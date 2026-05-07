@@ -1,6 +1,6 @@
 import os
 import csv
-import datetime, time
+import datetime, timedelta
 
 def main():
     print("")
@@ -64,34 +64,74 @@ def login():
 
 def lib_main_menu():
 
-    print("")
-    print("####################################################")
-    print("############## SHU Library management System ##############")
-    print("####################################################")
-    print("")
-    print("########### Please select an option ################")
-    print("### 1. Loan Books")
-    print("### 2. Return Books")
-    print("### 3. Extend loan period for Books")
-    print("### 4. Search for Books")
-    print("### 200. Exit program")
-    # i choose 200 for this as if it was a single number there would be more chance of a user accidentally pressing it
-    print("")
+    while True:
 
-    choice = int(input("Please select an option (n): "))
+        print("")
+        print("####################################################")
+        print("############## SHU Library management System ##############")
+        print("####################################################")
+        print("")
+        print("########### Please select an option ################")
+        print("### 1. Loan Books")
+        print("### 2. Return Books")
+        print("### 3. Extend loan period for Books")
+        print("### 4. Search for Books")
+        print("### 200. Exit program")
+        # i choose 200 for this as if it was a single number there would be more chance of a user accidentally pressing it
+        print("")
 
-    if choice == 1:
-        loan()
-    elif choice == 2:
-        return_book()
-    elif choice == 3:
-        extend_loan()
-    elif choice == 4:
-        search()
-    elif choice == 200:
-        quit()
-    else:
-        print("Your choice was invalid please try again")
+        choice = int(input("Please select an option (n): "))
+
+        if choice == 1:
+            loan()
+        elif choice == 2:
+            return_book()
+        elif choice == 3:
+            extend_loan()
+        elif choice == 4:
+            search()
+        elif choice == 200:
+            quit()
+        else:
+            print("Your choice was invalid please try again")
+
+def sup_main_menu():
+
+    while True:
+
+        print("")
+        print("####################################################")
+        print("############## SHU Library management System ##############")
+        print("####################################################")
+        print("")
+        print("########### Please select an option ################")
+        print("### 1. Loan Books")
+        print("### 2. Return Books")
+        print("### 3. Extend loan period for Books")
+        print("### 4. Search for Books")
+        print("### 200. Exit program")
+        # i choose 200 for this as if it was a single number there would be more chance of a user accidentally pressing it
+        print("")
+
+        choice = int(input("Please select an option (n): "))
+
+        if choice == 1:
+            loan()
+
+        elif choice == 2:
+            return_book()
+
+        elif choice == 3:
+            extend_loan()
+
+        elif choice == 4:
+            search()
+
+        elif choice == 200:
+            quit()
+
+        else:
+            print("Your choice was invalid please try again")
 
 def load_books():
 
@@ -105,44 +145,6 @@ def load_books():
             books.append(row)
 
     return books
-
-def sup_main_menu():
-
-    print("")
-    print("####################################################")
-    print("############## SHU Library management System ##############")
-    print("####################################################")
-    print("")
-    print("########### Please select an option ################")
-    print("### 1. Loan Books")
-    print("### 2. Return Books")
-    print("### 3. Extend loan period for Books")
-    print("### 4. Search for Books")
-    print("### 200. Exit program")
-    # i choose 200 for this as if it was a single number there would be more chance of a user accidentally pressing it
-    print("")
-
-    choice = int(input("Please select an option (n): "))
-
-    if choice == 1:
-        loan()
-
-    elif choice == 2:
-        return_book()
-
-    elif choice == 3:
-        extend_loan()
-
-    elif choice == 4:
-        search()
-
-    elif choice == 200:
-        quit()
-
-    else:
-        print("Your choice was invalid please try again")
-
-
 
 def loan():
 
@@ -236,7 +238,47 @@ def return_book():
     print("return books")
 
 def extend_loan():
-    print("extend loan period")
+
+    book_id = input("Please enter the book ID: ").strip()
+
+    loaned_file = os.path.join(os.path.dirname(__file__), 'loaned.csv')
+
+    loans = []
+    found = False
+
+    with open(loaned_file, newline="") as f:
+
+        reader = csv.DictReader(f)
+
+        for row in reader:
+
+            if row["BookID"] == book_id:
+
+                found = True
+
+                current_due = datetime.strptime(row["Due"], "%d/%m/%Y")
+
+                new_due = current_due + timedelta(days=14)
+
+                row["Due"] = new_due.strftime("%d/%m/%Y")
+
+                print("Loan extended successfully")
+                print("New due date:", row["Due"])
+
+            loans.append(row)
+
+    if found == False:
+        print("Book loan not found")
+        return
+
+    with open(loaned_file, "w", newline="") as f:
+
+        fieldnames = ["BookID", "BorrowerID", "Due"]
+
+        writer = csv.DictWriter(f, fieldnames=fieldnames)
+
+        writer.writeheader()
+        writer.writerows(loans)
 
 def search():
 
