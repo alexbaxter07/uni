@@ -1,6 +1,6 @@
 import os
 import csv
-import datetime, timedelta
+from datetime import datetime, timedelta
 
 def main():
     print("")
@@ -219,6 +219,8 @@ def loan():
 
             print("Book loaned successfully")
             print("Due date:", due_date)
+
+            break
 
     if book_found == False:
         print("Book not found")
