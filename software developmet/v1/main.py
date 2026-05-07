@@ -235,7 +235,70 @@ def loan():
         writer.writerows(books)
 
 def return_book():
-    print("return books")
+
+    book_id = input("Please enter the book ID: ").strip()
+
+    loaned_file = os.path.join(os.path.dirname(__file__), 'loaned.csv')
+    books_file = os.path.join(os.path.dirname(__file__), 'inventories.csv')
+
+    loans = []
+    found = False
+
+    # remove from loaned.csv
+    with open(loaned_file, newline="") as f:
+
+        reader = csv.DictReader(f)
+
+        for row in reader:
+
+            if row["BookID"] == book_id:
+
+                found = True
+                print("Book returned successfully")
+
+            else:
+                loans.append(row)
+
+    if found == False:
+        print("Book loan not found")
+        return
+
+    # save updated loaned.csv
+    with open(loaned_file, "w", newline="") as f:
+
+        fieldnames = ["BookID", "BorrowerID", "Due"]
+
+        writer = csv.DictWriter(f, fieldnames=fieldnames)
+
+        writer.writeheader()
+        writer.writerows(loans)
+
+    # update inventories.csv
+    books = []
+
+    with open(books_file, newline="") as f:
+
+        reader = csv.DictReader(f)
+
+        for row in reader:
+
+            if row["BookID"] == book_id:
+                row["CopiesAvailable"] = str(int(row["CopiesAvailable"]) + 1)
+
+                row["OnLoan"] = str(int(row["OnLoan"]) - 1)
+
+            books.append(row)
+
+    # save updated inventories.csv
+    with open(books_file, "w", newline="") as f:
+
+        fieldnames = ["BookID", "Title", "Author", "Genre", "PublishedYear", "TotalCopies", "CopiesAvailable",
+                      "OnLoan", "Deleted"]
+
+        writer = csv.DictWriter(f, fieldnames=fieldnames)
+
+        writer.writeheader()
+        writer.writerows(books)
 
 def extend_loan():
 
