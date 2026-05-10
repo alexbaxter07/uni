@@ -3,29 +3,36 @@ import csv
 from datetime import datetime, timedelta
 
 def main():
-    print("")
-    print("####################################################")
-    print("############## SHU Library management System ##############")
-    print("####################################################")
-    print("")
-    print("########### Please select an option ################")
-    print("### 1. Login")
-    print("### 200. Exit program")
-    # i choose 200 for this as if it was a single number there would be more chance of a user accidentally pressing it
-    print("")
 
-    #the function int will turn the users input to an integer as an input is always taken as a string this is easier for comparison later
-    choice = int(input("Please select an option (n): "))
+    while True:
 
-    #double equals signs is a comparison which will return a boolean
-    if choice == 1:
-        login()
+        print("")
+        print("####################################################")
+        print("############## SHU Library management System ##############")
+        print("####################################################")
+        print("")
+        print("########### Please select an option ################")
+        print("### 1. Login")
+        print("### 200. Exit program")
+        # i choose 200 for this as if it was a single number there would be more chance of a user accidentally pressing it
+        print("")
 
-    elif choice == 200:
-        quit()  # this function will stop the program
+        #the function int will turn the users input to an integer as an input is always taken as a string this is easier for comparison later it also checks if its a number
+        try:
+            choice = int(input("Please select an option (n): "))
+        except ValueError:
+            print("Please enter a number.")
+            continue
 
-    else:
-        print("Your choice was invalid please try again")
+        #double equals signs is a comparison which will return a boolean
+        if choice == 1:
+            login()
+
+        elif choice == 200:
+            quit()  # this function will stop the program
+
+        else:
+            print("Your choice was invalid please try again")
 
 def login():
     attempts = 0
@@ -80,7 +87,12 @@ def lib_main_menu():
         # i choose 200 for this as if it was a single number there would be more chance of a user accidentally pressing it
         print("")
 
-        choice = int(input("Please select an option (n): "))
+        #the function int will turn the users input to an integer as an input is always taken as a string this is easier for comparison later it also checks if its a number
+        try:
+            choice = int(input("Please select an option (n): "))
+        except ValueError:
+            print("Please enter a number.")
+            continue
 
         if choice == 1:
             loan()
@@ -109,11 +121,19 @@ def sup_main_menu():
         print("### 2. Return Books")
         print("### 3. Extend loan period for Books")
         print("### 4. Search for Books")
+        print("### 5. Add new Book")
+        print("### 6. Update Book Status")
+        print("### 7. Change Staff Account Status")
         print("### 200. Exit program")
         # i choose 200 for this as if it was a single number there would be more chance of a user accidentally pressing it
         print("")
 
-        choice = int(input("Please select an option (n): "))
+        #the function int will turn the users input to an integer as an input is always taken as a string this is easier for comparison later it also checks if its a number
+        try:
+            choice = int(input("Please select an option (n): "))
+        except ValueError:
+            print("Please enter a number.")
+            continue
 
         if choice == 1:
             loan()
@@ -126,6 +146,15 @@ def sup_main_menu():
 
         elif choice == 4:
             search()
+
+        elif choice == 5:
+            add_new()
+
+        elif choice == 6:
+            update_book()
+
+        elif choice == 7:
+            update_staff()
 
         elif choice == 200:
             quit()
@@ -370,6 +399,199 @@ def search():
 
     if found == False:
         print("Book not found")
+
+def add_new():
+
+    books_file = os.path.join(os.path.dirname(__file__), 'inventories.csv')
+
+    book_id = input("Please enter the new Book ID: ").strip()
+    title = input("Please enter the book title: ").strip()
+    author = input("Please enter the author: ").strip()
+    genre = input("Please enter the genre: ").strip()
+    published_year = input("Please enter the published year: ").strip()
+    total_copies = input("Please enter the total number of copies: ").strip()
+
+    books = []
+    book_exists = False
+
+    with open(books_file, newline="") as f:
+
+        reader = csv.DictReader(f)
+
+        for row in reader:
+
+            if row["BookID"] == book_id:
+                book_exists = True
+
+            books.append(row)
+
+    if book_exists == True:
+        print("This Book ID already exists")
+        return
+
+    new_book = {
+        "BookID": book_id,
+        "Title": title,
+        "Author": author,
+        "Genre": genre,
+        "PublishedYear": published_year,
+        "TotalCopies": total_copies,
+        "CopiesAvailable": total_copies,
+        "OnLoan": "0",
+        "Deleted": "0"
+    }
+
+    books.append(new_book)
+
+    with open(books_file, "w", newline="") as f:
+
+        fieldnames = ["BookID", "Title", "Author", "Genre", "PublishedYear", "TotalCopies", "CopiesAvailable", "OnLoan", "Deleted"]
+
+        writer = csv.DictWriter(f, fieldnames=fieldnames)
+
+        writer.writeheader()
+        writer.writerows(books)
+
+    print("New book added successfully")
+
+def update_book():
+
+    books_file = os.path.join(os.path.dirname(__file__), 'inventories.csv')
+
+    book_id = input("Please enter the Book ID: ").strip()
+
+    print("")
+    print("Select new status")
+    print("1. Available")
+    print("2. On Loan")
+    print("3. Deleted")
+
+    choice = input("Enter choice: ").strip()
+
+    books = []
+    found = False
+
+    with open(books_file, newline="") as f:
+
+        reader = csv.DictReader(f)
+
+        for row in reader:
+
+            if row["BookID"] == book_id:
+
+                found = True
+
+                if choice == "1":
+
+                    row["Deleted"] = "0"
+
+                    if int(row["TotalCopies"]) > int(row["OnLoan"]):
+
+                        row["CopiesAvailable"] = str(
+                            int(row["TotalCopies"]) - int(row["OnLoan"])
+                        )
+
+                    print("Book status updated to Available")
+
+                elif choice == "2":
+
+                    row["OnLoan"] = row["TotalCopies"]
+                    row["CopiesAvailable"] = "0"
+
+                    print("Book status updated to On Loan")
+
+                elif choice == "3":
+
+                    row["Deleted"] = "1"
+
+                    print("Book status updated to Deleted")
+
+                else:
+                    print("Invalid choice")
+                    return
+
+            books.append(row)
+
+    if found == False:
+        print("Book not found")
+        return
+
+    with open(books_file, "w", newline="") as f:
+
+        fieldnames = [
+            "BookID",
+            "Title",
+            "Author",
+            "Genre",
+            "PublishedYear",
+            "TotalCopies",
+            "CopiesAvailable",
+            "OnLoan",
+            "Deleted"
+        ]
+
+        writer = csv.DictWriter(f, fieldnames=fieldnames)
+
+        writer.writeheader()
+        writer.writerows(books)
+
+def update_staff():
+
+    staff_file = os.path.join(os.path.dirname(__file__), 'staff.csv')
+
+    email = input("Please enter the staff email: ").strip()
+
+    staff = []
+    found = False
+
+    with open(staff_file, newline="") as f:
+
+        reader = csv.DictReader(f)
+
+        for row in reader:
+
+            if row["Email"] == email:
+
+                found = True
+
+                print("")
+                print("Current status:", row["Status"])
+                print("1. Active")
+                print("2. Inactive")
+                print("3. Blocked")
+
+                choice = input("Please select the new status: ").strip()
+
+                if choice == "1":
+                    row["Status"] = "active"
+                    print("Staff account changed to active")
+
+                elif choice == "2":
+                    row["Status"] = "inactive"
+                    print("Staff account changed to inactive")
+
+                elif choice == "3":
+                    row["Status"] = "blocked"
+                    print("Staff account changed to blocked")
+
+                else:
+                    print("Invalid choice")
+                    return
+
+            staff.append(row)
+
+    if found == False:
+        print("Staff account not found")
+        return
+
+    with open(staff_file, "w", newline="") as f:
+
+        fieldnames = ["StaffID", "Name", "Email", "Password", "Role", "Status"]
+
+        writer = csv.DictWriter(f, fieldnames=fieldnames)
+
+        writer.writeheader()
+        writer.writerows(staff)
 
 # this is a secure way of calling main
 if __name__ == '__main__':
