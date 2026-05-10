@@ -71,3 +71,7 @@ with open("decrypted_file.csv", "w", newline="") as f:
 
 print("")
 print("Decrypted message saved to decrypted_file.csv")
+
+# this is a secure way of calling main
+if __name__ == '__main__':
+    main()
