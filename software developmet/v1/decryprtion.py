@@ -1,76 +1,78 @@
 import csv
 
-# open message.csv
-with open("message.csv", newline="") as f:
+def main():
 
-    reader = csv.reader(f)
+    # open message.csv
+    with open("message.csv", newline="") as f:
 
-    encrypted_message = ""
+        reader = csv.reader(f)
 
-    for row in reader:
+        encrypted_message = ""
 
-        for item in row:
-            encrypted_message = encrypted_message + item
+        for row in reader:
 
-print("")
-print("Encrypted Message:")
-print(encrypted_message)
-print("")
+            for item in row:
+                encrypted_message = encrypted_message + item
 
-# get shift value
-while True:
+    print("")
+    print("Encrypted Message:")
+    print(encrypted_message)
+    print("")
 
-    try:
-        shift = int(input("Please enter the shift value: "))
+    # get shift value
+    while True:
 
-        break
+        try:
+            shift = int(input("Please enter the shift value: "))
 
-    except ValueError:
-        print("Please enter a number.")
+            break
 
-decrypted_message = ""
+        except ValueError:
+            print("Please enter a number.")
 
-index = 0
+    decrypted_message = ""
 
-# decrypt using while loop
-while index < len(encrypted_message):
+    index = 0
 
-    character = encrypted_message[index]
+    # decrypt using while loop
+    while index < len(encrypted_message):
 
-    # uppercase letters
-    if character.isupper():
+        character = encrypted_message[index]
 
-        new_character = chr((ord(character) - 65 - shift) % 26 + 65)
+        # uppercase letters
+        if character.isupper():
 
-        decrypted_message = decrypted_message + new_character
+            new_character = chr((ord(character) - 65 - shift) % 26 + 65)
 
-    # lowercase letters
-    elif character.islower():
+            decrypted_message = decrypted_message + new_character
 
-        new_character = chr((ord(character) - 97 - shift) % 26 + 97)
+        # lowercase letters
+        elif character.islower():
 
-        decrypted_message = decrypted_message + new_character
+            new_character = chr((ord(character) - 97 - shift) % 26 + 97)
 
-    # spaces and special characters
-    else:
+            decrypted_message = decrypted_message + new_character
 
-        decrypted_message = decrypted_message + character
+        # spaces and special characters
+        else:
 
-    index = index + 1
+            decrypted_message = decrypted_message + character
 
-print("")
-print("Decrypted Message:")
-print(decrypted_message)
+        index = index + 1
 
-# save decrypted file
-with open("decrypted_file.csv", "w", newline="") as f:
+    print("")
+    print("Decrypted Message:")
+    print(decrypted_message)
 
-    writer = csv.writer(f)
+    # save decrypted file
+    with open("decrypted_file.csv", "w", newline="") as f:
 
-    writer.writerow([decrypted_message])
+        writer = csv.writer(f)
 
-print("")
-print("Decrypted message saved to decrypted_file.csv")
+        writer.writerow([decrypted_message])
+
+    print("")
+    print("Decrypted message saved to decrypted_file.csv")
 
 # this is a secure way of calling main
 if __name__ == '__main__':
