@@ -578,7 +578,8 @@ def update_staff():
 
     with open(staff_file, "w", newline="") as f:
 
-        fieldnames = ["StaffID", "Name", "Email", "Password", "Role", "Status"]
+        fieldnames = ["StaffID","Name","Email","Password","Role","Status","UserID","PhoneNumber","HireDate"
+        ]
 
         writer = csv.DictWriter(f, fieldnames=fieldnames)
 
