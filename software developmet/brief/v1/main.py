@@ -581,10 +581,13 @@ def update_staff():
         fieldnames = ["StaffID","Name","Email","Password","Role","Status","UserID","PhoneNumber","HireDate"
         ]
 
-        writer = csv.DictWriter(f, fieldnames=fieldnames)
+        for row in staff:
+            row["StaffID"] = row["StaffID"]
 
-        writer.writeheader()
-        writer.writerows(staff)
+            writer = csv.DictWriter(f, fieldnames=fieldnames)
+
+            writer.writeheader()
+            writer.writerows(staff)
 
 # this is a secure way of calling main
 if __name__ == '__main__':
