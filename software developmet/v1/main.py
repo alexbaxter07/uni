@@ -218,14 +218,6 @@ def loan():
 
             book_found = True
 
-            if book["Deleted"] == "1":
-                print("Book has been deleted")
-                return
-
-            if int(book["CopiesAvailable"]) <= 0:
-                print("No copies available")
-                return
-
             # update book numbers
             book["CopiesAvailable"] = str(int(book["CopiesAvailable"]) - 1)
             book["OnLoan"] = str(int(book["OnLoan"]) + 1)
