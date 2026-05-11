@@ -1,4 +1,4 @@
-import csv  # to allow owkring on / with csv files.
+import csv  # to allow working on / with csv files.
 
 
 def main():  # main subroutine to make it all work.
