@@ -8,4 +8,4 @@ UserID,Name,Role,Email,PhoneNumber,HireDate,Password,Status
 307,Sophia Wilson,Supervisor,sophia.wilson@example.com,555-2007,24/08/2016,sop07,active
 308,James Miller,Librarian,james.miller@example.com,555-2008,30/05/2020,jam08,inactive
 309,Charlotte Brown,Supervisor,charlotte.brown@example.com,555-2009,12/11/2015,cha09,inactive
-310,Lucas Moore,Librarian,lucas.moore@example.com,555-2010,20/02/2023,luc10,active
+310,Lucas Moore,Librarian,lucas.moore@example.com,555-2010,20/02/2023,luc10,inactive
