@@ -4,7 +4,7 @@ UserID,Name,Role,Email,PhoneNumber,HireDate,Password,Status
 303,Jessica Brown,Supervisor,jessica.brown@example.com,555-2003,05/12/2017,jes03,active
 304,Daniel Green,Librarian,daniel.green@example.com,555-2004,11/04/2021,dan04,active
 305,Emily White,Supervisor,emily.white@example.com,555-2005,19/03/2019,emi05,blocked
-306,Matthew Davis,Librarian,matthew.davis@example.com,555-2006,10/01/2022,mat06,active
+306,Matthew Davis,Librarian,matthew.davis@example.com,555-2006,10/01/2022,mat06,inactive
 307,Sophia Wilson,Supervisor,sophia.wilson@example.com,555-2007,24/08/2016,sop07,active
 308,James Miller,Librarian,james.miller@example.com,555-2008,30/05/2020,jam08,inactive
 309,Charlotte Brown,Supervisor,charlotte.brown@example.com,555-2009,12/11/2015,cha09,inactive
