@@ -651,6 +651,7 @@ def update_book():
 
                     # checks if there are copies that are not currently on loan
                     if int(row["TotalCopies"]) > int(row["OnLoan"]):
+
                         # calculates how many copies should be available
                         row["CopiesAvailable"] = str(
                             int(row["TotalCopies"]) - int(row["OnLoan"])
@@ -660,6 +661,7 @@ def update_book():
 
                 # checks if the user selected on loan
                 elif choice == "2":
+
                     # sets all copies to on loan
                     row["OnLoan"] = row["TotalCopies"]
 
@@ -670,8 +672,15 @@ def update_book():
 
                 # checks if the user selected deleted
                 elif choice == "3":
+
                     # marks the book as deleted
                     row["Deleted"] = "1"
+
+                    # sets available copies to 0
+                    row["CopiesAvailable"] = "0"
+
+                    # sets books on loan to 0
+                    row["OnLoan"] = "0"
 
                     print("Book status updated to Deleted")
 
