@@ -529,19 +529,31 @@ def update_book():
 
 def update_staff():
 
+    # creates the file path for staff.csv
     staff_file = os.path.join(os.path.dirname(__file__), 'staff.csv')
 
+    # asks the user to enter the email of the staff member
     email = input("Please enter the staff email: ").strip()
 
+    # creates an empty list to store all staff records
     staff = []
+
+    # boolean variable used to check if the staff member exists
     found = False
 
+    # opens the csv file in read mode
     with open(staff_file, newline="") as f:
 
+        # DictReader allows rows to be accessed using column names
         reader = csv.DictReader(f)
 
+        # stores the column headers from the csv file
+        fieldnames = reader.fieldnames
+
+        # loops through every row in the csv file
         for row in reader:
 
+            # checks if the email matches the entered email
             if row["Email"] == email:
 
                 found = True
@@ -552,8 +564,10 @@ def update_staff():
                 print("2. Inactive")
                 print("3. Blocked")
 
+                # asks the user to choose the new account status
                 choice = input("Please select the new status: ").strip()
 
+                # updates the status depending on the option chosen
                 if choice == "1":
                     row["Status"] = "active"
                     print("Staff account changed to active")
@@ -570,24 +584,25 @@ def update_staff():
                     print("Invalid choice")
                     return
 
+            # appends every row into the list so the file can be rewritten later
             staff.append(row)
 
+    # checks if the staff member was found
     if found == False:
         print("Staff account not found")
         return
 
+    # opens the csv file in write mode to overwrite the old data
     with open(staff_file, "w", newline="") as f:
 
-        fieldnames = ["StaffID","Name","Email","Password","Role","Status","UserID","PhoneNumber","HireDate"
-        ]
+        # DictWriter writes dictionaries back into the csv file
+        writer = csv.DictWriter(f, fieldnames=fieldnames)
 
-        for row in staff:
-            row["StaffID"] = row["StaffID"]
+        # rewrites the column headers
+        writer.writeheader()
 
-            writer = csv.DictWriter(f, fieldnames=fieldnames)
-
-            writer.writeheader()
-            writer.writerows(staff)
+        # rewrites all updated rows back into the file
+        writer.writerows(staff)
 
 # this is a secure way of calling main
 if __name__ == '__main__':
