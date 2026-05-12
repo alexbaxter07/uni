@@ -368,6 +368,9 @@ def return_book():
     # asks the user to enter the ID of the book being returned
     book_id = input("Please enter the book ID: ").strip()
 
+    # asks the user to enter the borrower ID
+    borrower_id = input("Please enter the borrower ID: ").strip()
+
     # creates the file paths for loaned.csv and inventories.csv
     loaned_file = os.path.join(os.path.dirname(__file__), 'loaned.csv')
     books_file = os.path.join(os.path.dirname(__file__), 'inventories.csv')
@@ -387,8 +390,8 @@ def return_book():
         # loops through every loan record
         for row in reader:
 
-            # checks if the current loan matches the book being returned
-            if row["BookID"] == book_id:
+            # checks if both the book ID and borrower ID match
+            if row["BookID"] == book_id and row["BorrowerID"] == borrower_id and found == False:
                 found = True
                 print("Book returned successfully")
 
@@ -403,12 +406,16 @@ def return_book():
 
     # save updated loaned.csv
     with open(loaned_file, "w", newline="") as f:
+
         # sets the column headers for loaned.csv
         fieldnames = ["BookID", "BorrowerID", "Due"]
+
         # DictWriter writes the updated loans list back into the csv file
         writer = csv.DictWriter(f, fieldnames=fieldnames)
+
         # writes the headers back into the csv file
         writer.writeheader()
+
         # writes all remaining loans back into loaned.csv
         writer.writerows(loans)
 
@@ -417,6 +424,7 @@ def return_book():
 
     # opens the inventories.csv file in read mode
     with open(books_file, newline="") as f:
+
         # DictReader reads the inventory file using the column headers
         reader = csv.DictReader(f)
 
@@ -425,6 +433,7 @@ def return_book():
 
             # checks if the book matches the returned book
             if row["BookID"] == book_id:
+
                 # adds 1 back to copies available
                 row["CopiesAvailable"] = str(int(row["CopiesAvailable"]) + 1)
 
@@ -436,17 +445,18 @@ def return_book():
 
     # save updated inventories.csv
     with open(books_file, "w", newline="") as f:
+
         # sets the column headers for inventories.csv
-        fieldnames = ["BookID", "Title", "Author", "Genre", "PublishedYear", "TotalCopies", "CopiesAvailable",
-                      "OnLoan", "Deleted"]
+        fieldnames = ["BookID","Title","Author","Genre","PublishedYear","TotalCopies","CopiesAvailable","OnLoan","Deleted"]
 
         # DictWriter writes the updated books list back into the csv file
         writer = csv.DictWriter(f, fieldnames=fieldnames)
+
         # writes the headers back into the csv file
         writer.writeheader()
+
         # writes all updated book records back into inventories.csv
         writer.writerows(books)
-
 def extend_loan():
 
     # asks the user to enter the book ID for the loan they want to extend
